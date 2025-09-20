@@ -1,0 +1,489 @@
+class My_class:
+  def instance_method(self):
+    return "This is an instance method."
+
+obj = My_class()
+obj.instance_method()
+
+
+#output: 'This is an instance method.'
+#-----------------------------------------------------------------
+
+class My_class:
+  def __init__(self, a, b):
+    self.a = a
+    self.b = b
+
+  def instance_method(self):
+    return f"This is the instance method and it can access the variables a = {self.a} and\
+ b = {self.b} with the help of self."
+
+  @staticmethod
+  def static_method():
+      return "static"
+      
+
+obj = My_class(2,4)
+
+obj2 = My_class(3, 6)
+obj2.a = 4
+
+obj.b = 10
+
+obj2.instance_method()
+
+
+obj.static_method()
+
+
+class Cat:
+    def __init__(self, name, age):
+      self.name = name
+      self.age = age
+
+    @staticmethod
+    def speak():
+      return "Meow"
+
+
+
+#----------------------------------------------------------------
+
+
+kirk = ["James Kirk", 34, "Captain", 2265]
+k = "James Kirk"
+t = "Tiberius"
+spock = ["Spock", 35, "Science Officer", 2254]
+mccoy = ["Leonard McCoy", "Chief Medical Officer", 2266, "meep", "also meep"]
+
+
+
+kirk2 = [i + i for i in kirk]
+print(kirk2)
+
+
+#output: ['James KirkJames Kirk', 68, 'CaptainCaptain', 4530]
+
+#----------------------------------------------------------------
+
+class Human:
+  '''This is a test class'''
+  pass
+
+'''
+* Definition is started by the word class
+* By convention, UsePascalCaseForClassNames, not camelCase or snake_case
+* The doc string with triple quotes is always a good idea
+* If the class has no further content, close it with the word pass
+'''
+
+#----------------------------------------------------------------
+
+adam = Human()
+print(adam.__sizeof__())
+print(adam)
+print("Hello " + str(adam))
+
+eve = Human()
+print('Hi {}'.format(eve))
+
+print(adam == eve)
+# here a error, '>' not supported between instances of 'Human' and 'Human'
+#print(adam > eve)
+
+
+#output:
+32
+<__main__.Human object at 0x000002BADE8DA2E0>
+Hello <__main__.Human object at 0x000002BADE8DA2E0>
+Hi <__main__.Human object at 0x000002BADE8DABB0>
+False
+
+#----------------------------------------------------------------
+
+class Person:
+  def __init__(self, name):
+    self.name = name
+
+  def rename(self, name):
+    self.name = name
+
+  def marry(self, other):
+    if isinstance(other, Person):
+      self.name = self.name + '-' + other.name
+
+
+#----------------------------------------------------------------
+
+harry = Person('Hary')
+print(harry.name)
+harry.rename('Harry')
+print(harry.name)
+
+sally = Person('Sally')
+print(sally.name)
+sally.marry(harry)
+print(sally.name)
+
+#output:
+Hary
+Harry
+Sally
+Sally-Harry
+
+#----------------------------------------------------------------
+
+#Some Magic functions
+#str
+#eq
+
+def __str__(self):
+  return 'My name is ' + self.name
+
+def __eq__(self, other):
+  return self.name == other.name
+  # dunder
+
+
+#By overwriting the dunder functions, you can define the behaviour of your objects with operators 
+like < > = += -= + - * / and many more its string representation and description This #enables you 
+to write short and beautiful and hopefully intuitive code
+
+
+#----------------------------------------------------------------
+
+class Person:
+  def __init__(self, name):
+    self.name = name
+
+  def rename(self, name):
+    self.name = name
+
+  def marry(self, other):
+    if isinstance(other, Person):
+      self.name = self.name + '-' + other.name
+
+  def __str__(self):
+    return 'My name is ' + self.name
+
+  def __eq__(self, other):
+    return self.name == other.name
+
+  def __lt__(self, other):
+    return self.name.__lt__(other.name)
+    # delegating to less than comparison for stringsa
+
+
+sam = Person('Sam')
+print(str(sam))
+
+#output: My name is Sam
+
+#----------------------------------------------------------------
+
+#Inherit a class
+
+class Student(Person):
+  def __init__(self, name, course):
+    super().__init__('Student ' + name)
+    self.course = course
+
+  def __str__(self):
+    return super().__str__() + ' and I\'m studying ' + self.course
+
+  def print_name():
+    return super().name + ' ' + super()._last_name
+
+
+sandra = Student('Sandra', 'Mathematics')
+print(str(sandra))
+
+alex = Person("Alex")
+print(str(alex))
+
+#output:
+My name is Student Sandra and I'm studying Mathematics
+My name is Alex
+#----------------------------------------------------------------
+
+'''
+#* Every student is a Person, this is in the declaration of the class
+* Note how the constructor of Student class delegates to the constructor of the parent class
+* With super() you can access the methods and attributes of the parent class
+'''
+
+mary = Student('Mary', 'FE')
+print(mary)
+
+harry2 = Student('Harry', 'CE')
+print(harry2)
+print(harry == harry2)
+
+harry.rename('Student Harry')
+print(harry)
+print(harry == harry2)
+
+
+
+#output:
+
+My name is Student Mary and I'm studying FE
+My name is Student Harry and I'm studying CE
+False
+<__main__.Person object at 0x000002BADE8DA490>
+True
+
+#----------------------------------------------------------------
+
+'''
+The four principles of OOP
+This is how OOP is different from modular programming (or other programming paradigms)
+
+Encapsulation
+Abstraction
+Inheritance
+Polymorphism
+
+ENCAPSULATION: Each object keeps its data private. Other objects don’t have the direct access 
+to this data. However, they can interact with the object through public methods.
+'''
+
+
+class Person:
+   def __init__(self):
+       self.name = 'Marry'
+       self._last_name = 'Poppins' # protected
+
+   def print_name(self):
+       return self.name + ' ' + self._last_name
+
+
+'''
+NOTE: Python does not support protected/private methods or variables (unlike Java,c++,etc). 
+Alternatively a convention is used to denote whether a variable or method is protected/private.
+
+Access modifiers:
+
+Public: can be accessed anywhere inside or outside the class
+Protected: can be accessed inside the class and the classes derived from that class(subclasses)
+Private: can only be accessed inside the class
+'''
+
+#----------------------------------------------------------------
+
+'''
+PROTECTED VARIABLE
+Uses single underscore (_variable_name)
+'''
+
+p = Person()
+print(p.name)
+print(p.print_name())
+print(p._last_name) # not intended usage. Variable is protected
+
+
+#outpu:
+Marry
+Marry Poppins
+Poppins
+
+'''
+NOTE: We have two options to fix this:
+
+Make the variable public
+Use Setters/Getters approach (by using @property which is the python way)
+To add a second setter method: @last_name.setter def last_name(self, last_name): self._last_name = last_name
+
+One can still use _last_name though, but one should not
+'''
+#----------------------------------------------------------------
+
+class Person:
+   def __init__(self):
+       self.name = 'Marry'
+       self._last_name = 'Poppins'
+
+   def print_name(self):
+       return self.name + ' ' + self._last_name
+
+   @property
+   def last_name(self):
+       return self._last_name
+
+   @last_name.setter
+   def last_name(self, last_name):
+       self._last_name = last_name
+
+
+class Student(Person):
+  def __init__(self):
+    super().__init__()
+
+  # def __str__(self):
+  #   return super().__str__() + ' and I\'m studying ' + self.course
+
+  def print_name(self):
+    return 'Student ' + self.name + ' ' + self._last_name
+
+
+
+p = Person()
+print(p.print_name()) # Marry Poppins
+
+s = Student()
+print(s.print_name()) # Student Marry Poppins
+
+#out:
+Marry Poppins
+Student Marry Poppins
+
+
+
+p = Person()
+print(p.name)
+print(p._last_name)
+print(p.print_name())
+print(p.last_name)  # intended usage using getter
+
+#out:
+Marry
+Poppins
+Marry Poppins
+Poppins
+
+#----------------------------------------------------------------
+
+'''
+PRIVATE VARIABLE
+Uses double underscore (__variable_name)
+'''
+
+class Person:
+   def __init__(self):
+       self.name = 'Marry'
+       self.__last_name = 'Poppins' # private var
+
+   def print_name(self):
+       return self.name + ' ' + self.__last_name
+
+   def last_name(self):
+       return self.__last_name
+
+
+p = Person()
+print(p.name)
+print(p.print_name()) # Marry Poppins
+print(p.last_name())
+# print(p.__last_name)  # error. No attribute found
+
+#out:
+Marry
+Marry Poppins
+Poppins
+
+
+'''
+NOTE: Double underscore(__var) leads to the variable being “private” in python.
+
+One would not be able to access it with __last_name.
+
+One can still access with _Person__last_name though, thats why its not really private. (name mangling)
+
+ABSTRACTION: Each object reveals operations only relevant to the other objects. Abstraction means hiding internal implementation details.
+'''
+
+#----------------------------------------------------------------
+
+class CoffeeMachine:
+  def __init__(self):
+    self.coffee_beans = 10
+    self.water = 5
+
+  def brew(self):
+    self.coffee_beans -= 1
+    self.water -= 1
+    return 'Coffee brewed ... receive cup'
+
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        pass
+
+class Cat(Animal):
+    def speak(self):
+        print("Meow")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof")
+
+class Mouse(Animal):
+    def speak(self):
+        print("Inaudible squeaks")
+
+puppy = Dog("pup")
+kitty = Cat("kit")
+
+puppy.speak()
+kitty.speak()
+
+
+#out:
+Woof
+Meow
+
+#----------------------------------------------------------------
+
+'''
+INHERITANCE: Reusing the common logic and extract the unique logic onto a separate class. 
+We create a child class that is derived from the parent class. Child class uses all the 
+fields and methods of parent class and also implements its own unique part.
+'''
+
+class Animal:
+  def __init__(self, name):
+    self.name = name
+
+  def get_name(self):
+    return self.name
+
+  def number_of_legs(self):
+    return 4
+
+
+class Cat(Animal):
+  def __init__(self, name):
+    super().__init__(name)
+
+
+c = Cat("Muffy")
+print(c.get_name())
+
+#out: Muffy
+
+#----------------------------------------------------------------
+
+'''
+POLYMORPHISM: Base classes can define an interface (abstract methods) that looks the same to 
+the outside for all child classes. But each child class can have its own implementation. 
+Inheriting from the same base class makes the different child classes “look the same”.
+'''
+
+class Monkey(Animal):
+  def __init__(self, name):
+    super().__init__(name)
+
+  def number_of_legs(self):
+    return 2
+
+
+m = Monkey("Aby")
+print(m.number_of_legs())
+
+#out: 2
+
+
+#----------------------------------------------------------------
