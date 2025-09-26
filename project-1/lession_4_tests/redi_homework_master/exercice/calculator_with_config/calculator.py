@@ -1,4 +1,4 @@
-from exercice.calculator_with_config.config import Config
+from lession_4_tests.redi_homework_master.exercice.calculator_with_config.config import Config
 
 
 class Calculator:

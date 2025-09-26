@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 
-from banking.src.v2.account import Account
+from ....banking.src.v2.account import Account
 
 @pytest.fixture
 def mock_db():

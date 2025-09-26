@@ -1,5 +1,5 @@
-from banking.src.v3.user import User
 
+from lession_4_tests.banking.src.v3.user import User
 
 def test_user_info(mock_db):
     user = User(user_id=2, name="Bob", db_connection=mock_db)

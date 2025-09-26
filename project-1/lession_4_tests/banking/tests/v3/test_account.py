@@ -1,6 +1,6 @@
 import pytest
-from banking.src.v3.account import Account
-from banking.src.v3.user import User
+from ....banking.src.v3.account import Account
+from ....banking.src.v3.user import User
 
 @pytest.fixture
 def user(mock_db):

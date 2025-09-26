@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from exercice.calculator_with_config.calculator import Calculator
+from ...exercice.calculator_with_config.calculator import Calculator
 
 @pytest.fixture
 def config():
