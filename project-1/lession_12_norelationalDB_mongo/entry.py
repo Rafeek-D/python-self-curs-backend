@@ -7,10 +7,10 @@
 
 #%pip install "pymongo[srv]"
 
+'''
 from bson import ObjectId
 from pymongo import MongoClient
-
-#...ldwJTBVs2h6i
+'''
 
 ###-------------------------
 #client = MongoClient("mongodb+srv://rafeekslack_db_user:......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0")
