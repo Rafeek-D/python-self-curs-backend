@@ -11,6 +11,7 @@
 from bson import ObjectId
 from pymongo import MongoClient
 '''
+from os import remove
 
 ###-------------------------
 #client = MongoClient("mongodb+srv://rafeekslack_db_user:......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0")
@@ -242,6 +243,26 @@ for user in Student.objects:
 
 '''
 ##-----------------------------------------------
+## delete instance, one from many with same name
+#first Naoto: 68f422af5d7429408687ed29
+
+#1)
+for user in Student.objects:
+    if user.name == "Naoto":
+        print(user.id)
+        #user.delete()
+        break
+    break
+
+#2)
+#direct remove:
+#Student.objects(id=new_st1.id).delete()
+##-----------------------------------------------
+'''
+
+
+'''
+##-----------------------------------------------
 # Count number of students
 print(Student.objects.count())
 ##-----------------------------------------------
@@ -264,9 +285,16 @@ for user in Student.objects:
 ##-----------------------------------------------
 '''
 
+
+
+
+
+
 '''
 ##-----------------------------------------------
 # Disconnect your connection
 disconnect()
 ##-----------------------------------------------
 '''
+
+
