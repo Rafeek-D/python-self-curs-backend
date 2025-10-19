@@ -1,0 +1,184 @@
+%pip install "pymongo[srv]"
+
+-----------
+
+from bson import ObjectId
+from pymongo import MongoClient
+
+# Create a connection using your connection's string
+client = MongoClient(
+    "mongodb+srv://adnanmuttaleb_db_user:<password>@mycluster.n1psaz6.mongodb.net/?retryWrites=true&w=majority&appName=mycluster")
+
+-------------------
+
+# Define a database name "school". If a given database is not found, a new one will be created when data is inserted.
+database = client.school
+
+# Define a collection name "course". If a given collection is not found, a new one will be created when data is inserted.
+collection = database.students
+
+------------------------
+
+# Insert one document into the collection
+collection.insert_one({
+    "_id": ObjectId("626bccb9697a12204fb22ea3"),
+    "name": "John Doe",
+    "location": "Homburg",
+    "courses": ["Python", "MongoDB"],
+    "age": 25
+})
+
+-----------------------------
+
+# Insert multiple documents
+collection.insert_many([
+    {
+        "name": "Jane Doe",
+        "location": "Munich",
+        "courses": ["Java", "MySQL"],
+        "age": 26
+    },
+    {
+        "name": "Mike",
+        "location": "Munich",
+        "courses": ["Go", "Oracle"],
+        "age": 24,
+    },
+    {
+        "name": "Marcelo",
+        "location": "Berlin",
+        "courses": ["Go", "JavaScript"],
+        "age": 24,
+    },
+    {
+        "name": "Mike",
+        "emai": "mike@example.com", # You could add an extra fields
+        "location": "Munich",
+        "courses": ["Go", "UX"],
+        "age": 24,
+    }
+])
+
+
+----------------------------------
+
+# Find all documents
+students = collection.find({})
+
+for student in students:
+    print(student)
+
+-------------------------
+
+# Find studnets in Munich
+for student in collection.find({"location": 'Munich'}):
+    print(student)
+
+------------------------------
+
+# Find studnets either in Munich or Homburg
+students = collection.find({"location": {"$in": ["Munich", "Homburg"]}})
+
+for student in students:
+    print(student)
+
+----------------------------
+
+# Filter by student's name
+marcelo = collection.find_one({"name": "Marcelo"})
+print(marcelo)
+
+---------------------------
+
+# Update a property within the document to a new value
+collection.update_one({"_id": marcelo["_id"]}, {"$set": {"age": 30}})
+
+----------------------------------
+
+# Filter by student's name
+print(collection.find_one({"_id": marcelo["_id"]}))
+
+------------------------------------
+
+# Delete a document using Object ID
+collection.delete_one({"_id": ObjectId("626bccb9697a12204fb22ea3")})
+
+--------------------------------------
+
+# Delete all documents in the collection
+collection.delete_many({})
+
+-----------------------------------
+
+########################
+
+%pip install mongoengine
+
+-------------------------
+
+from mongoengine import connect, disconnect, Document
+from mongoengine import StringField, IntField, ListField
+
+-------------------
+
+connect(host="mongodb+srv://adnanmuttaleb_db_user:<password>@mycluster.n1psaz6.mongodb.net/?retryWrites=true&w=majority&appName=mycluster", db="school")
+
+----------------------
+
+# Student here represent a collection in the database
+class Student(Document):
+    name = StringField(max_length=64, required=True)
+    location = StringField(max_length=64)
+    courses = ListField(StringField(max_length=64))
+    age = IntField(min_value=17, max_value=99)
+
+-----------------------------------
+
+# Create new Student object which translate into a document in the student collection
+newstudent = Student(name="Naoto", location="Japan", courses=["Marketing"], age=34)
+
+----------------------------------
+
+# Saving the student's instance
+newstudent.save()
+
+---------------------------------------
+
+# Print the auto generated student's id
+print(newstudent.id)
+
+-------------------------------------
+
+# Prints out the names of all the students in the database
+for user in Student.objects:
+    print(user.name)
+
+------------------------------------------
+
+# Count number of students
+Student.objects.count()
+
+-----------------------------------------
+
+# Check whether the new student's state is valid
+newstudent.age = 14
+newstudent.validate()
+
+------------------------------------------
+
+# Disconnect your connection
+disconnect()
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
