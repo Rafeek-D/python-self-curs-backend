@@ -68,7 +68,7 @@ def get_all_movies_from_DB2():
 
 
 
-
+''' 
 if __name__ == "__main__":
 
     #print(get_all_movies_from_DB2())
@@ -90,3 +90,5 @@ print(Movies_Collection.objects)
 
 print("first")
 print(Movies_Collection.objects[2].to_mongo().to_dict().get("title"))
+
+'''
