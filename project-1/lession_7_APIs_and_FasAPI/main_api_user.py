@@ -25,7 +25,7 @@ def get_users():
 @app.get("/users/{user_id}")
 def get_user2(user_id: int):
     return  users[user_id]
-##
+### the number of user_id in Browser is from 0,1,....
 
 @app.post("/users")
 def create_user(user: dict):
@@ -49,6 +49,19 @@ def delete_user(user_id: int):
             return users.pop(i)
     return {"error": "User not found"}
 
+@app.get("/users/getname/{name}")
+def get_user3(name: str):
+    for i in users:
+        if i.get("name") == name:
+            return i
+    return {"error": "User not found with name"}
+### the number of user_id in Browser is from 0,1,....
+
+
+#for i in users:
+#    print(i.get("name"))
+
+print(users[0].get("name"))
 
 if __name__ == "__main__":
     create_user({"id": 3, "name": "rr"})

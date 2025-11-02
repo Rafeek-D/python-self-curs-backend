@@ -7,10 +7,11 @@ import uvicorn
 import string
 import  requests
 
+#xxxab6
 
 def show_movie_infos(movie_title):
     #response_show_movie_title = requests.get(url_part1 + titel_input + movie_title + plus_key)
-    response_show_movie_inf = requests.get(f"http://www.omdbapi.com/?t={movie_title}&apikey=1b0aaab6")
+    response_show_movie_inf = requests.get(f"http://www.omdbapi.com/?t={movie_title}&apikey=1b0aa......")
     return response_show_movie_inf.json()
     #return response_show_movie_title
 
@@ -61,6 +62,7 @@ if __name__ == '__main__':
 
 ##from m
 if __name__ == '__main__':
+    #print("aa \n gg")
     a_in= input("put your heading here")
     #app_flask.run(debug=True)  ## here it will reload the code after every change and with input it execute often
     app_flask.run(debug=True, use_reloader=False) ## here it will not reload the code and input only one time

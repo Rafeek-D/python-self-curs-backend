@@ -7,14 +7,14 @@
 
 #%pip install "pymongo[srv]"
 
-'''
+#'''
 from bson import ObjectId
-from pymongo import MongoClient
-'''
+#from pymongo import MongoClient
+#'''
 from os import remove
 
 ###-------------------------
-#client = MongoClient("mongodb+srv://rafeekslack_db_user:......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0")
+#client = MongoClient("mongodb+srv://rafeekslack_db_user:....ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0")
 ###-------------------------
 
 ###-------------------------
@@ -24,7 +24,7 @@ database = client.DB1
 collection = database.Coll1
 usr = collection.find({})
 for x in usr:
-    print(x)
+    print(x)   #=> as dic
 
 '''
 ###-------------------------
@@ -36,13 +36,21 @@ for x in usr:
 # Define a database name "school". If a given database is not found, a new one will be created when data is inserted.
 database = client.school
 
-# Define a collection name "course". If a given collection is not found, a new one will be created when data is inserted.
+# Define a collection name "students". If a given collection is not found, a new one will be created when data is inserted.
 collection = database.students
 
 students_from_collection = collection.find({})
-print(students_from_collection)
+#print(students_from_collection)  #=> <pymongo.synchronous.cursor.Cursor object at 0x7fec34c47e00>
+
+for student in students_from_collection:
+    print(student)
 ###-------------------------
 '''
+
+
+
+###----------------
+
 
 
 '''
@@ -52,7 +60,7 @@ for student in students_from_collection:
 
     #if isinstance(student, ObjectId):
     #if student:
-        #print(type(student))  => <class 'dict'>
+        #print(type(student))  #=> <class 'dict'>
     #else:
        # print("empty")
 ###-------------------------
@@ -65,7 +73,8 @@ for student in students_from_collection:
 # Insert one document into the collection
 
 collection.insert_one({
-    "_id": ObjectId("626bccb9697a12204fb22ea3"),
+    "_id": ObjectId(),  #=> automatic will give an ID
+    #"_id": ObjectId("626bccb9697a12204fb22ea3"),
     "name": "John Doe",
     "location": "Homburg",
     "courses": ["Python", "MongoDB"],
@@ -104,6 +113,7 @@ for student in collection.find({"location": 'Munich'}):
 ###-------------------------
 '''
 
+
 '''
 ###-------------------------
 # Find studnets from  DB School and collection Student, and studnets either in Munich or Homburg
@@ -125,7 +135,7 @@ for student in students:
 #print(name_result)
 
 #2)
-#ore with all the entry:
+#or with all the entry:
 name_result2 = collection.find({})
 for student in name_result2:
     #print(student.get("name"))
@@ -162,8 +172,11 @@ print(collection.find_one(ObjectId("68f40b238354267aded36924")))
 #print(collection.find_one({"name": "max"}))
 print(print(collection.find_one(ObjectId("68f40b238354267aded36925"))))
 collection.delete_one({"_id": ObjectId("68f40b238354267aded36925")})
+collection.delete_one({"name": "Jane Doe"})
 ###-------------------------
 '''
+
+
 
 '''
 ###-------------------------
@@ -184,7 +197,7 @@ from mongoengine import StringField, IntField, ListField
 
 ##-----------------------------------------------
 # if the db=name. and the name of DB not exist than you will not get a error and if you create a collection than it will create a DB with this collection!!
-#connect(host="mongodb+srv://rafeekslack_db_user:.......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db="school3")
+#connect(host="mongodb+srv://rafeekslack_db_user:.....ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db="school3")
 ##-----------------------------------------------
 
 
@@ -210,7 +223,7 @@ class Student(Document):
 '''
 ##-----------------------------------------------
 # Create new Student object which translate into a document in the student collection
-newstudent = Student(name="Naoto", location="Japan", courses=["Marketing"], age=34)
+newstudent1 = Student(name="Naoto", location="Japan", courses=["Marketing"], age=34)
 newstudent2 = Student(name="max", location="MU", courses=["DB"], age=20)
 ##-----------------------------------------------
 '''
@@ -219,7 +232,7 @@ newstudent2 = Student(name="max", location="MU", courses=["DB"], age=20)
 '''
 ##-----------------------------------------------
 # Saving the student's instance.
-newstudent.save()
+newstudent1.save()
 newstudent2.save()
 ##-----------------------------------------------
 '''
@@ -227,9 +240,9 @@ newstudent2.save()
 '''
 ##-----------------------------------------------
 # Print the auto generated student's id, name, location
-print(newstudent.id)
-print(newstudent.name)
-print(newstudent.location)
+print(newstudent1.id)
+print(newstudent1.name)
+print(newstudent1.location)
 ##-----------------------------------------------
 '''
 
@@ -238,7 +251,21 @@ print(newstudent.location)
 # Prints out the names of all the students in the database
 for user in Student.objects:
     print(user.name)
+    print(type(user.name))
+    print(user.get_info())
+    print(Student.objects.count())
 ##-----------------------------------------------
+'''
+
+'''
+print("the infos without id")
+x=[]
+for user in Student.objects:
+    data= user.to_mongo().to_dict()
+    data.pop("_id", None)
+    dic_temp= data
+    x.append(dic_temp)
+print(data)
 '''
 
 '''
