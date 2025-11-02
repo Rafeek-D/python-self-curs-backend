@@ -59,7 +59,7 @@ def get_movie_short_info(movie_title,plus_key):
 
 
 app = FastAPI()
-#your_movies = []
+your_movies = []
 
 @app.get("/")
 def read_root():
