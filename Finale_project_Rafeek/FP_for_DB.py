@@ -63,6 +63,7 @@ def get_all_movies_from_DB2():
     for movie in Movies_Collection.objects:
         data = movie.to_mongo().to_dict()
         data.pop("_id", None)
+        n_mov.append(data)
     return n_mov
 
 
