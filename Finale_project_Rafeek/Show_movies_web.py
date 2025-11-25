@@ -10,10 +10,9 @@ import  requests
 from FP_main import *
 from FP_for_api import *
 from FP_for_DB import *
+from DB_Class import *
 
 from mongoengine import *
-
-from Finale_project_Rafeek import FP_for_DB
 
 '''
 list_of_movie=[{'Title': 'Avatar', 'Year': '2009',
@@ -25,9 +24,9 @@ list_of_movie=[{'Title': 'Avatar', 'Year': '2009',
 def make_moviecard(list_of_movie):
     x= "\n"
     for dic in list_of_movie:
-        title = dic.get('Title')
-        year = dic.get('Year')
-        poster = dic.get('Poster')
+        title = dic.get('title')
+        year = dic.get('year')
+        poster = dic.get('poster')
         x= x + f"""
             <h1>{title}</h1>
             <p>{year}</p>
@@ -37,10 +36,11 @@ def make_moviecard(list_of_movie):
     return x
 
 
-
-
+your_movies = DB_Class_fun.get_all_movies_from_DB()
 
 app_flask = flask.Flask(__name__)
+
+
 
 @app_flask.route('/')
 def index():
@@ -50,14 +50,6 @@ def index():
     #movie_card = movie_title,)
     movie_card=make_moviecard(your_movies, ))
     #movie_card=make_moviecard(get_all_movies_from_DB(),))
-
-#mov=get_all_movies_from_DB_2()
-#print(get_all_movies_from_DB())
-#print(mov)
-
-
-
-
 
 
 
@@ -81,4 +73,20 @@ if __name__ == '__main__':
 
 '''
 
+if __name__ == '__main__':
+    print(your_movies)
+ #   print(your_movies[0].get('title'))
+    app_flask.run(debug=True, use_reloader=False)
 
+
+
+
+
+##########testing#########
+#mov=get_all_movies_from_DB_2()
+#print(get_all_movies_from_DB())
+#print(mov)
+#print(your_movies)
+#print(type(your_movies))
+
+#print(your_movies[0].get('Title'))
