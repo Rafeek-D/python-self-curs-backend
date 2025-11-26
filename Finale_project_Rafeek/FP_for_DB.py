@@ -22,7 +22,7 @@ database = "moviesDB"
 
 ##-----------------------------------------------
 # if the db=name. and the name of DB not exist than you will not get a error and if you create a collection than it will create a DB with this collection!!
-connect(host="mongodb+srv://rafeekslack_db_user:K00PldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db=database)
+connect(host="mongodb+srv://rafeekslack_db_user:.......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db=database)
 ##-----------------------------------------------
 
 

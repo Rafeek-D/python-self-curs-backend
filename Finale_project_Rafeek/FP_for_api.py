@@ -17,7 +17,7 @@ from lession_10_minipro_movies.mini_pro_movies_with_htmlflask import movie_title
 #url_part1= "http://www.omdbapi.com/?"
 #titel_input= "t="
 #name_input= "titanic"
-plus_key_globale= "&apikey=1b0aa..."
+plus_key_globale= "&apikey=1b0aa....."
 
 
 def get_url_from_titele(movie_title,plus_key):
@@ -51,10 +51,10 @@ def get_movie_response_status_movie_name(movie_title,plus_key):
 
 
 app = FastAPI()
-movies =[]
+#movies =[]
 #your_movies=[]
 #your_movies = get_all_movies_from_DB()
-#your_movies = DB_Class_fun.get_all_movies_from_DB()
+your_movies = DB_Class_fun.get_all_movies_from_DB()
 @app.get("/")
 def read_root():
     return {"message": "Hello, your Movies Database"}
@@ -66,7 +66,7 @@ def get_movies():
 
 ##
 @app.get("/your_movies/getone/{movie_name}")
-def get_user2(movie_name: str):
+def get_one_movie(movie_name: str):
     for movie in your_movies:
         if movie.get("title") == movie_name:
             return movie
@@ -92,13 +92,24 @@ def update_movie(movie_name: str, your_movies: List[Dict]):
     return {"error": "User not found"}
 
 
-@app.delete("/delete_movie/{movie_name}")
-def delete_user(movie_name: str):
+##@app.delete("/delete_movie/{movie_name}")
+@app.get("/delete_movie/{movie_name}")
+def delete_one_movie(movie_name: str):
+    your_movies = DB_Class_fun.get_all_movies_from_DB()
+    #print(len(your_movies))
+    #print(your_movies)
+    x = "error: User not found"
     for movie in your_movies:
-        if movie["title"] == movie_name:
-            return your_movies.pop(movie)
-    DB_Class_fun.delete_one_movie_from_DB(movie_name)
-    return {"error": "User not found"}
+    #print(type(movie))
+        if movie.get("title") == movie_name:
+            x= f'this ist the removed movie: {movie_name}'
+            #print("test")
+            #print( f'this ist the movie: {movie_name}')
+            return DB_Class_fun.delete_one_movie_from_DB(movie_name)
+            #break
+    return x
+            #return your_movies.pop(movie)
+    #return x
 
 
 
@@ -124,7 +135,7 @@ def delete_user(movie_name: str):
 #t=get_movie_short_info("titanic",plus_key_globale)["Title"]="ttt"
 #print(t)
 #print(len(your_movies))
-
+#print(delete_one_movie("Rocky"))
 
 #create_movie(get_movie_short_info("rocky", plus_key_globale))
 #print(len(your_movies))

@@ -19,7 +19,7 @@ database = "moviesDB"
 
 ##-----------------------------------------------
 # if the db=name. and the name of DB not exist than you will not get a error and if you create a collection than it will create a DB with this collection!!
-connect(host="mongodb+srv://rafeekslack_db_user:.....ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db=database)
+connect(host="mongodb+srv://rafeekslack_db_user:......ldwJTBVs2h6i@clus0.jnqagzn.mongodb.net/?retryWrites=true&w=majority&appName=Clus0", db=database)
 ##-----------------------------------------------
 
 
@@ -62,20 +62,28 @@ class DB_Class_fun:
 
     #one movie with the name
     def delete_one_movie_from_DB(name_movie):
+        x= "there are no movie with this name"
         for movie in MoviesCollection.objects:
             if movie.title == name_movie:
                 movie.delete()
+                x= "the movie has removed successfully"
                 break
-            break
+                #return f'the movie has removed successfully'
+                #return x
+        print(x)
 
     #delete all the movies from DB
     def delete_all_movies_from_DB():
         MoviesCollection.objects.delete()
 
     def get_movie_from_DB (name: str):
+        x= f'the are no movie with this name: {name}'
         for movie in MoviesCollection.objects:
             if movie.title == name:
-                return movie.get_info()
+                #return movie.get_info()
+                x= movie.get_info()
+                break
+        return x
 
     def get_all_movies_from_DB():
         x=[]
@@ -107,20 +115,24 @@ class DB_Class_fun:
 
 ################# testing######
 
-'''
+#'''
 if __name__ == "__main__":
     # mov1= MoviesCollection(    title="rr", year="11", poster="tttt")
     # mov1.save()
-    # print(get_movie_from_DB("Avatar"))
+    #print(DB_Class_fun.get_movie_from_DB("Avatar"))
     #print(MoviesCollection.objects.count())
     #print(get_all_movies_from_DB2())
     #delete_movie_from_DB("rr")
      #for user in MoviesCollection.objects:
      #   print(user.title)
 
-    #print("the length of the List of Movies is: ",len(DB_Class_fun.get_all_movies_from_DB()))
+    print("the length of the List of Movies is: ",len(DB_Class_fun.get_all_movies_from_DB()))
     #print(DB_Class_fun.get_all_movies_from_DB())
     #print("the typ of get_all_movies_from_DB ist: ", type(DB_Class_fun.get_all_movies_from_DB()))
+
+    #print(DB_Class_fun.delete_one_movie_from_DB("tt"))
+    #DB_Class_fun.delete_one_movie_from_DB("Titanic")
+    print(len(DB_Class_fun.get_all_movies_from_DB()))
 
     #DB_Class_fun.delete_movie_from_DB("Avatar")
     #print("the length of the List of Movies is: ", len(DB_Class_fun.get_all_movies_from_DB()))
@@ -132,10 +144,11 @@ if __name__ == "__main__":
     #print(make_moviecard(get_all_movies_from_DB()))
 
     #for movie in Movies_Collection.objects:
-    #    print(type(movie.to_mongo().to_dict()))
+    #   print(type(movie.to_mongo().to_dict()))
 
 
-#   print(get_movie_from_DB("Titanic"))
+    #print(DB_Class_fun.get_movie_from_DB("gg"))
+    #print(DB_Class_fun.get_movie_from_DB("Avatar"))
 
 #    for user in MoviesCollection.objects:
 #        data= user.to_mongo().to_dict()
@@ -147,4 +160,4 @@ if __name__ == "__main__":
 #   print("first")
 #   print(MoviesCollection.objects[2].to_mongo().to_dict().get("title"))
 
-'''
+#'''
